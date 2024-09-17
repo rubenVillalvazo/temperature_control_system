@@ -37,10 +37,12 @@ Crear un sistema que controle la temperatura de una habitación usando sensores 
 ## Cómo ejecutar el proyecto
 1. 
 ```
-
+git clone https://github.com/rubenVillalvazo/temperature_control_system.git
+cd temperature_control_system
 ```
 2. 
 ```
+cargo run
 ```
 
 ## Contribuciones
