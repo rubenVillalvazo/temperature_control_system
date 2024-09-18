@@ -23,8 +23,8 @@ Crear un sistema que controle la temperatura de una habitación usando sensores 
 
 ### Fase 1: Implementación del Patrón Singleton
 
-- [ ] Crear el controlador de temperatura como Singleton.
-- [ ] Integrar simulación básica de temperatura.
+- [x] Crear el controlador de temperatura como Singleton.
+- [x] Integrar simulación básica de temperatura.
 
 ### Fase 2: Implementación del Patrón Factory Method
 
