@@ -28,8 +28,8 @@ Crear un sistema que controle la temperatura de una habitación usando sensores 
 
 ### Fase 2: Implementación del Patrón Factory Method
 
-- [ ] Implementar diferentes tipos de sensores (alta y baja precisión).
-- [ ] Integrar los sensores con el controlador de temperatura.
+- [x] Implementar diferentes tipos de sensores (alta y baja precisión).
+- [x] Integrar los sensores con el controlador de temperatura.
 
 ### Fase 3: Implementación del Patrón Observer
 
