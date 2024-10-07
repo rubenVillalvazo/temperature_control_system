@@ -1,4 +1,4 @@
-mod actuador;
+mod actuator;
 mod prelude;
 mod sensor;
 mod temperature_controller;
