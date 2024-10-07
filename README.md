@@ -33,8 +33,8 @@ Crear un sistema que controle la temperatura de una habitación usando sensores 
 
 ### Fase 3: Implementación del Patrón Observer
 
-- [ ] Crear los actuadores (ventilador y calefactor).
-- [ ] Configurar los actuadores como observadores del controlador de temperatura.
+- [x] Crear los actuadores (ventilador y calefactor).
+- [x] Configurar los actuadores como observadores del controlador de temperatura.
 
 ### Fase 4: Implementación del Patrón Strategy
 
