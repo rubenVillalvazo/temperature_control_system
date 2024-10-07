@@ -1,14 +1,15 @@
 use crate::prelude::*;
 
-/// Estructura que representa el controlador de temperatura.
-/// Se utilizará como un Singleton para asegurarse de que solo exista una instancia de esta estructura.
+// Estructura que representa el controlador de temperatura.
+// Se utilizará como un Singleton para asegurarse de que solo exista una instancia de esta estructura.
 struct TemperatureController {
     temperature: f64, // Campo para almacenar la temperatura actual.
+    observers: Vec<Box<dyn Actuador>>,
 }
 
 impl TemperatureController {
-    /// Método para obtener la única instancia de `TemperatureController`.
-    /// Este método implementa el patrón Singleton.
+    // Método para obtener la única instancia de `TemperatureController`.
+    // Este método implementa el patrón Singleton.
     fn instance() -> Arc<Mutex<Self>> {
         // Usamos una variable estática mutable para almacenar la única instancia de `TemperatureController`.
         // La anotación `unsafe` es necesaria porque las variables estáticas mutables requieren cuidado
@@ -20,7 +21,10 @@ impl TemperatureController {
             CONTROLLER
                 .get_or_insert_with(|| {
                     // Si no existe aún, creamos una nueva instancia de `TemperatureController` con una temperatura inicial.
-                    Arc::new(Mutex::new(TemperatureController { temperature: 20.0 }))
+                    Arc::new(Mutex::new(TemperatureController {
+                        temperature: 20.0,
+                        observers: Vec::new(),
+                    }))
                     // Temperatura inicial
                 })
                 // Retornamos una copia de la referencia a la instancia.
@@ -28,20 +32,33 @@ impl TemperatureController {
         }
     }
 
-    /// Método para cambiar la temperatura.
-    /// Este método será llamado cuando queramos modificar la temperatura en el controlador.
-    fn set_temperature(&mut self, new_temp: f64) {
-        self.temperature = new_temp; // Actualizamos el valor de la temperatura.
+    // Añadir un nuevo observador (Actuador) a la lista.
+    fn add_observer(&mut self, observer: Box<dyn Actuador>) {
+        self.observers.push(observer);
     }
 
-    /// Método para obtener la temperatura actual.
-    /// Esto nos permite consultar el valor de la temperatura en cualquier momento.
+    // Notificar a los observadores cuando cambie la temperatura.
+    fn notify_observers(&self) {
+        for observer in &self.observers {
+            observer.update(self.temperature);
+        }
+    }
+
+    // Método para cambiar la temperatura.
+    // Este método será llamado cuando queramos modificar la temperatura en el controlador.
+    fn set_temperature(&mut self, new_temp: f64) {
+        self.temperature = new_temp; // Actualizamos el valor de la temperatura.
+        self.notify_observers();
+    }
+
+    // Método para obtener la temperatura actual.
+    // Esto nos permite consultar el valor de la temperatura en cualquier momento.
     fn get_temperature(&self) -> f64 {
         self.temperature // Retornamos el valor actual de la temperatura.
     }
 }
 
-/// Función auxiliar que se encarga de interactuar con el controlador de temperatura.
+// Función auxiliar que se encarga de interactuar con el controlador de temperatura.
 pub fn set_temperature_controller() {
     // Obtenemos la instancia Singleton del controlador de temperatura.
     let controller = TemperatureController::instance();
