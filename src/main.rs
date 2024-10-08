@@ -1,6 +1,7 @@
 mod actuator;
 mod prelude;
 mod sensor;
+mod simulation;
 mod temperature_controller;
 
 use crate::prelude::*;
